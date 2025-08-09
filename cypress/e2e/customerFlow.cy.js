@@ -62,4 +62,9 @@ describe('Customer Banking Flow', () => {
             expect(text).to.contains('Account created successfully');
         });
     })
+
+    it('E) Should go Home', () => {
+        cy.get('[ng-click="home()"]').click();
+        cy.url().should('include', 'login');
+    })
 })
