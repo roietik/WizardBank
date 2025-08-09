@@ -29,6 +29,16 @@ const openAccountWith = (currency, customer = CUSTOMER) => {
     cy.get('[type="submit"]').click();
 }
 
+/**
+ *
+ * @param {Customer} [customer=CUSTOMER]
+ */
+const loginCustomer = (customer = CUSTOMER) => {
+    cy.get('[ng-click="customer()"]').click();
+    cy.get('[name="userSelect"]').select(`${customer.fName} ${customer.lName}`);
+    cy.get('[type="submit"]').click();
+}
+
 describe('Customer Banking Flow', () => {
     before(() => {
         cy.visit('/');
@@ -67,4 +77,10 @@ describe('Customer Banking Flow', () => {
         cy.get('[ng-click="home()"]').click();
         cy.url().should('include', 'login');
     })
+
+    // Create Transations as Customer
+    it('F) Should login as Customer', () => {
+        loginCustomer();
+        cy.url().should('include', 'account');
+    });
 })
