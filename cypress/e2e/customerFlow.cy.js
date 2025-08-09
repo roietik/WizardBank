@@ -37,4 +37,9 @@ describe('Customer Banking Flow', () => {
             expect(text).to.contains('Customer added successfully');
         });
     })
+
+    it('C) Should go to Open Account', () => {
+        cy.get('[ng-click="openAccount()"]').click();
+        cy.url().should('include', 'openAccount');
+    })
 })
