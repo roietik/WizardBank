@@ -117,4 +117,9 @@ describe('Customer Banking Flow', () => {
             cy.get('[ng-show="message"]').should('contain', 'Transaction successful');
         });
     })
+
+    it('I) Should go Transactions', () => {
+        cy.get('[ng-click="transactions()"]').click();
+        cy.url().should('include', 'listTx');
+    })
 })
