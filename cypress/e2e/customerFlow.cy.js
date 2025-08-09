@@ -10,7 +10,7 @@ const DEPOSIT_AMOUNTS = ['1000', '999', '9'];
 
 /**
  *
- * @param {Customer} [customer=CUSTOMER]
+ * @param {object} [customer]
  */
 const addCustomer = (customer = CUSTOMER) => {
     cy.get('[ng-click="addCust()"]').click();
@@ -33,7 +33,7 @@ const openAccountWith = (currency, customer = CUSTOMER) => {
 
 /**
  *
- * @param {Customer} [customer=CUSTOMER]
+ * @param {object} [customer]
  */
 const loginCustomer = (customer = CUSTOMER) => {
     cy.get('[ng-click="customer()"]').click();
