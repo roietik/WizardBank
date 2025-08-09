@@ -8,6 +8,8 @@ const CURRENCY = 'Dollar';
 
 const DEPOSIT_AMOUNTS = ['1000', '999', '9'];
 
+const WITHDRAWAL_AMOUNTS = ['100', '99', '9'];
+
 /**
  *
  * @param {object} [customer]
@@ -101,6 +103,18 @@ describe('Customer Banking Flow', () => {
             addDeposit(amount);
 
             cy.get('[ng-show="message"]').should('contain', 'Deposit Successful');
+        });
+    })
+
+    WITHDRAWAL_AMOUNTS.forEach((amount) => {
+        it(`Should successfully withdraw ${amount}`, () => {
+            cy.get('[ng-click="withdrawl()"]').click();
+            cy.contains('[type="submit"]', 'Withdraw').should('be.visible');
+
+            cy.get('[placeholder="amount"]').type(amount);
+            cy.contains('[type="submit"]', 'Withdraw').click();
+
+            cy.get('[ng-show="message"]').should('contain', 'Transaction successful');
         });
     })
 })
