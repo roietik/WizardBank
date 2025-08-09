@@ -6,6 +6,8 @@ const CUSTOMER = {
 
 const CURRENCY = 'Dollar';
 
+const DEPOSIT_AMOUNTS = ['1000', '999', '9'];
+
 /**
  *
  * @param {Customer} [customer=CUSTOMER]
@@ -37,6 +39,15 @@ const loginCustomer = (customer = CUSTOMER) => {
     cy.get('[ng-click="customer()"]').click();
     cy.get('[name="userSelect"]').select(`${customer.fName} ${customer.lName}`);
     cy.get('[type="submit"]').click();
+}
+
+/**
+ *
+ * * @param {string} value - The amount to deposit as a string.
+ */
+const addDeposit = (value) => {
+    cy.get('[placeholder="amount"]').type(value);
+    cy.contains('[type="submit"]', 'Deposit').click();
 }
 
 describe('Customer Banking Flow', () => {
@@ -83,4 +94,13 @@ describe('Customer Banking Flow', () => {
         loginCustomer();
         cy.url().should('include', 'account');
     });
+
+    DEPOSIT_AMOUNTS.forEach((amount) => {
+        it(`G) Should successfully add a deposit of ${amount}`, () => {
+            cy.get('[ng-click="deposit()"]').click();
+            addDeposit(amount);
+
+            cy.get('[ng-show="message"]').should('contain', 'Deposit Successful');
+        });
+    })
 })
